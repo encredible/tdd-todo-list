@@ -1,6 +1,6 @@
 import React from 'react';
 import Styled from 'styled-components';
-import { PageHeader } from './Components';
+import { Button, PageHeader } from './Components';
 
 const Container = Styled.div`
   min-height: 100vh;
@@ -14,7 +14,7 @@ const Container = Styled.div`
 function App() {
   return (
     <Container>
-      <PageHeader/>
+      <PageHeader />
     </Container>
   );
 }

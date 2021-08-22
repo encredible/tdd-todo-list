@@ -32,7 +32,12 @@ const GoBack = Styled(Link)`
 
 export const PageHeader = () => {
   const location = useLocation();
-  const pathname = location.action ? location.location.pathname : location.pathname;
+  let { pathname } = location
+  if (!pathname) {
+    // 이유는 모르겠지만 action: PUSH일 때는 location 안에 location이 생기는 문제가 있음.
+    // @ts-ignore
+    pathname = location.location.pathname
+  }
   let title = '에러';
   if (pathname === '/') {
     title = '할 일 목록'
