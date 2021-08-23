@@ -35,7 +35,7 @@ describe('<PageHeader />', () => {
     );
     const label = screen.getByText('할 일 추가');
     expect(label).toBeInTheDocument();
-    const goBack = screen.queryByText('돌아가기');
+    const goBack = screen.getByText('돌아가기');
     expect(goBack).toBeInTheDocument();
     expect(goBack.getAttribute('href')).toBe('/');
     expect(container).toMatchSnapshot()
@@ -51,7 +51,7 @@ describe('<PageHeader />', () => {
 
     const label = screen.getByText('할 일 상세')
     expect(label).toBeInTheDocument();
-    const goBack = screen.queryByText('돌아가기');
+    const goBack = screen.getByText('돌아가기');
     expect(goBack).toBeInTheDocument();
     expect(goBack.getAttribute('href')).toBe('/');
   })
@@ -67,7 +67,7 @@ describe('<PageHeader />', () => {
 
     const label = screen.getByText('에러')
     expect(label).toBeInTheDocument();
-    const goBack = screen.queryByText('돌아가기') as HTMLElement;
+    const goBack = screen.getByText('돌아가기') as HTMLElement;
     expect(goBack).toBeInTheDocument();
     expect(goBack.getAttribute('href')).toBe('/');
   })
