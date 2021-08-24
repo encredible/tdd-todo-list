@@ -1,6 +1,6 @@
 import React from 'react';
 import Styled from 'styled-components';
-import { Button, List, PageHeader, Add, Detail } from 'Components';
+import { Button, List, PageHeader, Add, Detail, NotFound } from 'Components';
 
 const Container = Styled.div`
   min-height: 100vh;
@@ -20,3 +20,6 @@ function App() {
 }
 
 export default App;
+
+
+
