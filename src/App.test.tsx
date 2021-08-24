@@ -2,21 +2,19 @@ import React from 'react';
 import { fireEvent, render, screen } from '@testing-library/react';
 import App from './App';
 import { createMemoryHistory, MemoryHistory } from 'history';
-import { Router } from 'react-router-dom';
+import { BrowserRouter, Router } from 'react-router-dom';
 import 'jest-styled-components';
 import { Container } from 'react-dom';
 import { create } from 'domain';
+import userEvent from '@testing-library/user-event';
 
 describe('<App />', () => {
   it('renders component correctly', () => {
-    const history = createMemoryHistory();
-    history.push('/');
-
     localStorage.setItem('ToDoList', '["ToDo 1", "ToDo 2", "ToDo 3"]');
     render(
-      <Router history={history}>
+      <BrowserRouter>
         <App />
-      </Router>
+      </BrowserRouter>
     );
 
     const header = screen.getByText('할 일 목록');
@@ -41,14 +39,11 @@ describe('<App />', () => {
   });
 
   it('deletes toDo item', () => {
-    const history = createMemoryHistory();
-    history.push('/');
-
     localStorage.setItem('ToDoList', '["ToDo 1", "ToDo 2", "ToDo 3"]');
     render(
-      <Router history={history}>
+      <BrowserRouter>
         <App />
-      </Router>
+      </BrowserRouter>
     );
 
     const toDoItem = screen.getByText('ToDo 2');
@@ -60,17 +55,15 @@ describe('<App />', () => {
     expect(JSON.parse(localStorage.getItem('ToDoList') as string)).not.toContain('ToDo 2');
   });
 
-  it('go to Add page and go back to List page', () => {
-    const history = createMemoryHistory();
-    history.push('/');
-
+  it('go to Add page and go back to List page', async () => {
     render(
-      <Router history={history}>
+      <BrowserRouter>
         <App />
-      </Router>
+      </BrowserRouter>
     );
 
     const addButton = screen.getByText('+');
+
     fireEvent.click(addButton);
 
     const header = screen.getByText('할 일 추가');
@@ -91,14 +84,11 @@ describe('<App />', () => {
   })
 
   it('adds a new ToDo', () => {
-    const history = createMemoryHistory();
-    history.push('/');
-
     localStorage.setItem('ToDoList', '["ToDo 1", "ToDo 2", "ToDo 3"]');
     render(
-      <Router history={history}>
+      <BrowserRouter>
         <App />
-      </Router>
+      </BrowserRouter>
     );
 
     const addButton = screen.getByText('+');
@@ -119,12 +109,10 @@ describe('<App />', () => {
   it('go to Detail page and go back to List page', () => {
     localStorage.setItem('ToDoList', '["ToDo 1"]');
 
-    const history = createMemoryHistory();
-    history.push('/');
     render(
-      <Router history={history}>
+      <BrowserRouter>
         <App />
-      </Router>
+      </BrowserRouter>
     );
 
     const toDoItem = screen.getByText('ToDo 1');
@@ -148,13 +136,10 @@ describe('<App />', () => {
   it('delete toDo from the detail page', () => {
     localStorage.setItem('ToDoList', '["ToDo 1"]');
 
-    const history = createMemoryHistory();
-    history.push('/');
-
     render(
-      <Router history={history}>
+      <BrowserRouter>
         <App />
-      </Router>
+      </BrowserRouter>
     );
 
     const toDoItem = screen.getByText('ToDo 1');
@@ -164,6 +149,7 @@ describe('<App />', () => {
     const header = screen.getByText('할 일 상세');
     expect(header).toBeInTheDocument();
     const deleteButton = screen.getByText('삭제');
+
     fireEvent.click(deleteButton);
 
     expect(header.textContent).toBe('할 일 목록');
